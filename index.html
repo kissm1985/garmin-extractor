@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Garmin Extractor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Garmin Venu SQ2 → Google Drive</p>
+        <h1>Garmin Extractor</h1>
+        <p class="subtitle">30 nap Garmin adat letöltése, JSON export és feltöltés a Google Drive mappába.</p>
+      </div>
+      <span id="apiBadge" class="badge">API: nincs ellenőrizve</span>
+    </section>
+
+    <section class="panel">
+      <h2>Cloud API beállítás</h2>
+      <p class="muted">Add meg a backend API URL-jét, például Render/Railway szolgáltatás URL-t.</p>
+      <div class="row">
+        <input id="apiUrl" type="url" placeholder="https://your-garmin-api.onrender.com" />
+        <button id="saveApiBtn" class="secondary">Mentés</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h3>1. Garmin kapcsolat</h3>
+        <p>Bejelentkezés ellenőrzése a backendben tárolt Garmin adatokkal.</p>
+        <button id="testGarminBtn">Garmin teszt</button>
+        <pre id="garminResult">Várakozik...</pre>
+      </article>
+
+      <article class="card">
+        <h3>2. Google Drive kapcsolat</h3>
+        <p>Service Account és Drive kapcsolat ellenőrzése.</p>
+        <button id="testDriveBtn">Drive teszt</button>
+        <pre id="driveResult">Várakozik...</pre>
+      </article>
+    </section>
+
+    <section class="panel runPanel">
+      <div>
+        <h2>3. Manuális adatletöltés</h2>
+        <p class="muted">Egy gombnyomással elindítja a 30 napos Garmin exportot és Drive feltöltést.</p>
+      </div>
+      <button id="runBtn" class="primary">Adatletöltés indítása</button>
+      <pre id="runResult">Várakozik...</pre>
+    </section>
+
+    <section class="panel">
+      <h2>Rendszerlog</h2>
+      <pre id="logBox">Frontend betöltve.</pre>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
