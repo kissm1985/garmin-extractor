@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, jsonify
+from flask_cors import CORS
 import json, os
 from datetime import datetime
 from config import settings
@@ -6,63 +7,11 @@ from garmin_client import GarminExtractorClient
 from drive_client import GoogleDriveClient
 
 app = Flask(__name__)
-
-HTML = """
-<!DOCTYPE html>
-<html>
-<head>
-<title>Garmin Extractor</title>
-<style>
-body{font-family:Arial;padding:20px;background:#f4f6f8}
-.card{background:white;padding:20px;border-radius:10px;margin-bottom:10px}
-button{padding:10px 15px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer}
-</style>
-</head>
-<body>
-<h1>Garmin Extractor UI</h1>
-
-<div class='card'>
-<h3>1. Garmin Login teszt</h3>
-<button onclick="testGarmin()">Teszt</button>
-<p id='garmin'></p>
-</div>
-
-<div class='card'>
-<h3>2. Google Drive kapcsolat</h3>
-<button onclick="testDrive()">Teszt</button>
-<p id='drive'></p>
-</div>
-
-<div class='card'>
-<h3>3. Adat letöltés + feltöltés</h3>
-<button onclick="runExtract()">Futtatás</button>
-<p id='result'></p>
-</div>
-
-<script>
-async function testGarmin(){
- const r = await fetch('/test-garmin');
- const j = await r.json();
- document.getElementById('garmin').innerText = JSON.stringify(j);
-}
-async function testDrive(){
- const r = await fetch('/test-drive');
- const j = await r.json();
- document.getElementById('drive').innerText = JSON.stringify(j);
-}
-async function runExtract(){
- const r = await fetch('/run');
- const j = await r.json();
- document.getElementById('result').innerText = JSON.stringify(j);
-}
-</script>
-</body>
-</html>
-"""
+CORS(app)
 
 @app.route('/')
-def home():
-    return render_template_string(HTML)
+def health():
+    return jsonify({"status":"running"})
 
 @app.route('/test-garmin')
 def test_garmin():
@@ -103,4 +52,4 @@ def run():
         return jsonify({"status":"ERROR","message":str(e)})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
